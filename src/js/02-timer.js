@@ -1,4 +1,5 @@
 import flatpickr from "flatpickr";
+import Notiflix from 'notiflix';
 import "flatpickr/dist/flatpickr.min.css";
 
 //  Отслеживаю  елементы 
@@ -18,7 +19,7 @@ const options = {
   onClose(selectedDates) {
     console.log(selectedDates[0]);
      if (selectedDates[0] <= new Date()) {
-      window.alert('"Please choose a date in the future"')
+       Notiflix.Notify.failure('Please choose a date in the future');
     } else { 
        btnStart.disabled = false;
     }
