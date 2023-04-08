@@ -1,7 +1,7 @@
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
 
-
+//  Отслеживаю  елементы 
 const dataDaysEl = document.querySelector('span[data-days]')
 const dataHoursEl = document.querySelector('span[data-hours')
 const dataMinutesEl = document.querySelector('span[data-minutes]')
@@ -24,11 +24,11 @@ const options = {
     }
   },
 };
-flatpickr("input#datetime-picker", options);
 
-
+// Инициализация flatpickr
 const fp = flatpickr("input#datetime-picker", options);
 
+//  Таймер  который вызывается  при клике на кнопку Start
 const newTimer = {
   isActive: false,
   startTimer() { 
@@ -54,11 +54,13 @@ btnStart.addEventListener('click', onBtnStart)
 function onBtnStart() {
   newTimer.startTimer();
 }
-
+//  Функция которая форматирует объект с рассчитанным оставшимся временем , добавляет 0 если в числе меньше двух символов
 function addLeadingZero(value) { 
   return String(value).padStart(2, '0')
 }
 
+
+//  Функция которая возвращает объект - в котором разница между текущем и будущем временем 
 function convertMs(ms) {
   // Number of milliseconds per unit of time
   const second = 1000;
