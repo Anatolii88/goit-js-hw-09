@@ -4,10 +4,12 @@ import Notiflix from 'notiflix';
 const formEl = document.querySelector('.form')
 
 //  Добавляю слушателя события  на форму 
+
 formEl.addEventListener('submit', onSubmit)
 
 function onSubmit(evt) {
   evt.preventDefault()
+
 
   let delayStep = Number(formEl.elements.step.value);
   let delay = Number(formEl.elements.delay.value);
@@ -25,6 +27,15 @@ function onSubmit(evt) {
   }
 
 }
+
+// После запуска генератора промисов, очищаю инпуты 
+formEl.addEventListener('submit', reset)
+function reset(evt) { 
+  evt.currentTarget.elements.amount.value = ''
+  evt.currentTarget.elements.step.value = ''
+  evt.currentTarget.elements.delay.value = ''
+}
+
 
 function createPromise(position, delay) {
   const shouldResolve = Math.random() > 0.3;
