@@ -6,7 +6,7 @@ import "flatpickr/dist/flatpickr.min.css";
 const dataDaysEl = document.querySelector('span[data-days]')
 const dataHoursEl = document.querySelector('span[data-hours')
 const dataMinutesEl = document.querySelector('span[data-minutes]')
-const dtatSecondsEl = document.querySelector('span[data-seconds]')
+const dataSecondsEl = document.querySelector('span[data-seconds]')
 const btnStart = document.querySelector('button[data-start]');
 
 
@@ -29,31 +29,41 @@ const options = {
 // Инициализация flatpickr
 const fp = flatpickr("input#datetime-picker", options);
 
+
 //  Таймер  который вызывается  при клике на кнопку Start
 const newTimer = {
-  isActive: false,
+  isActive: false, 
   startTimer() { 
     if (this.isActive) { 
       return;
     }
     this.isActive = true;
-    setInterval(function () { 
-        const chooseDate = fp.selectedDates[0];
+      const timer = setInterval(function () { 
+      const chooseDate = fp.selectedDates[0];
       const delta = chooseDate - new Date()
       const { days, hours, minutes, seconds } = convertMs(delta)
       dataDaysEl.textContent = days
       dataHoursEl.textContent = hours
       dataMinutesEl.textContent = minutes
-      dtatSecondsEl.textContent = seconds
-    },1000)
+      dataSecondsEl.textContent = seconds
+     
+       if (chooseDate.toString() === new Date().toString()) { 
+      console.log(clearInterval(timer))
+      dataDaysEl.textContent = '00'
+      dataHoursEl.textContent = '00'
+      dataMinutesEl.textContent = '00'
+      dataSecondsEl.textContent = '00'
+       }
+       
+    }, 1000)
+  },
 
-  }
 }
-
 
 btnStart.addEventListener('click', onBtnStart)
 function onBtnStart() {
   newTimer.startTimer();
+  
 }
 //  Функция которая форматирует объект с рассчитанным оставшимся временем , добавляет 0 если в числе меньше двух символов
 function addLeadingZero(value) { 
